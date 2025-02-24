@@ -14,6 +14,7 @@ RUN npm install
 COPY app/ .
 
 # Build the React app for production
+ENV VITE_BACKEND_URL=https://fridge-server-303225112313.australia-southeast2.run.app
 RUN npm run build
 
 RUN ls -la /app

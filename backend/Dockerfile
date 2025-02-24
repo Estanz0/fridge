@@ -6,7 +6,6 @@ WORKDIR /fridge/app
 
 # Copy the requirements file into the container
 COPY requirements.txt .
-COPY .env .
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
@@ -15,7 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY app/ .
 
 # Make port 8000 available to the world outside this container
-EXPOSE 8000
+EXPOSE 8080
 
 # Define environment variable
 ENV PYTHONUNBUFFERED=1
@@ -23,4 +22,4 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /fridge
 
 # Run the FastAPI server
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
