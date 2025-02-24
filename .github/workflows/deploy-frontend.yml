@@ -29,6 +29,9 @@ jobs:
               run: npm run build
               working-directory: frontend/app
 
+            - name: TEST
+              run: ls -la frontend/app
+
             - name: Setup Pages
               uses: actions/configure-pages@v5
 
