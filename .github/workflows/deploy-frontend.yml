@@ -5,6 +5,11 @@ on:
         branches:
             - main
 
+permissions:
+    contents: read
+    pages: write
+    id-token: write
+
 jobs:
     deploy:
         environment:
@@ -28,9 +33,6 @@ jobs:
             - name: Build
               run: npm run build
               working-directory: frontend/app
-
-            - name: TEST
-              run: ls -la frontend/app
 
             - name: Setup Pages
               uses: actions/configure-pages@v5
