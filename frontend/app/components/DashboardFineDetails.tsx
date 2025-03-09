@@ -8,18 +8,18 @@ interface FineDetailsProps {
 const FineDetails = ({ fine }: FineDetailsProps) => {
   return (
     <div className="max-h-96 overflow-y-auto sm:rounded-lg">
-      <dl className="max-w-md divide-y divide-gray-200 p-4 text-gray-900 dark:divide-gray-700 dark:text-white">
+      <dl className="divide-y divide-gray-200 p-4 text-gray-900 dark:divide-gray-700 dark:text-white">
         <div className="flex flex-col pb-3">
           <dt className="mb-1 text-gray-500 dark:text-gray-400 md:text-lg">
             Submitted by
           </dt>
-          <dd className="text-lg font-semibold">{fine?.creator.name}</dd>
+          <dd className="text-lg font-normal">{fine?.creator.name}</dd>
         </div>
         <div className="flex flex-col py-3">
           <dt className="mb-1 text-gray-500 dark:text-gray-400 md:text-lg">
             Closes At
           </dt>
-          <dd className="text-lg font-semibold">
+          <dd className="text-lg font-normal">
             {fine?.status === "open"
               ? formatDateToLocal(fine?.closes_at, true)
               : "Closed on " + formatDateToLocal(fine?.closes_at, true)}
@@ -30,7 +30,7 @@ const FineDetails = ({ fine }: FineDetailsProps) => {
           <dt className="mb-1 text-gray-500 dark:text-gray-400 md:text-lg">
             Description
           </dt>
-          <dd className="text-lg font-semibold">{fine?.description}</dd>
+          <dd className="text-lg font-normal">{fine?.description}</dd>
         </div>
       </dl>
     </div>
