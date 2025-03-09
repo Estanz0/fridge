@@ -4,6 +4,7 @@ import { Table } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { Fine, FineFilter } from "../types/types.tsx";
 import authenticatedGetRequest from "../util/authenticatedRequest.tsx";
+import { capitalize } from "../util/utilFunctions.tsx";
 
 interface FinesListProps {
   setSelectedFineId: (fineId: string) => void;
@@ -47,7 +48,7 @@ function FinesList({ setSelectedFineId, fineFilter }: FinesListProps) {
               <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                 {fine.title}
               </Table.Cell>
-              <Table.Cell>{fine.status}</Table.Cell>
+              <Table.Cell>{capitalize(fine.status)}</Table.Cell>
               <Table.Cell>{fine.fine_type.name}</Table.Cell>
               <Table.Cell>{fine.amount}</Table.Cell>
               <Table.Cell>{fine.creator.name}</Table.Cell>
