@@ -5,13 +5,12 @@ load_dotenv()
 
 
 class Settings(BaseSettings):
-    DATABASE_URL: str = "sqlite:///./local.db"
+    DATABASE_URL: str
     CORS_ALLOW_ORIGINS: list[str] = ["*"]
 
     APPWRITE_ENDPOINT: str = "https://cloud.appwrite.io/v1"
     APPWRITE_PROJECT_ID: str = ""
     APPWRITE_API_KEY: str = ""
-    APPWRITE_VERIFICATION_URL: str = ""
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
