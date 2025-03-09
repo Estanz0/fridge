@@ -2,31 +2,55 @@
 
 import { Button, Label, TextInput } from "flowbite-react";
 import React, { useRef } from "react";
-// import { Link } from "react-router-dom";
-import { ID } from "appwrite";
-import { account } from "../util/Appwrite";
 import { useNavigate } from "react-router-dom";
-import authenticatedPostRequest from "../util/authenticatedRequest";
+import unAuthenticatedPostRequest from "../util/authenticatedRequest";
 
 function RegisterForm() {
   const navigate = useNavigate();
   const registerForm = useRef<HTMLFormElement>(null);
 
+  const [isValidEmail, setIsValidEmail] = React.useState(true);
+  const [isPasswordMatch, setIsPasswordMatch] = React.useState(true);
+  const [message, setMessage] = React.useState("");
+
+  function validateEmail(email: string) {
+    return (
+      email.endsWith("@kpmg.co.nz") ||
+      email.endsWith("byron.lg.smith@gmail.com")
+    );
+  }
+
+  function validatePassword(password: string, repeatPassword: string) {
+    return password.length >= 8 && password === repeatPassword;
+  }
+
   const handleRegistration = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const fullname = registerForm.current?.fullname.value;
     const email = registerForm.current?.email.value;
     const password = registerForm.current?.password?.value;
+    const repeatPassword = registerForm.current?.repeatPassword?.value;
+
+    if (!validateEmail(email)) {
+      setIsValidEmail(false);
+      setMessage("Email address must end with @kpmg.co.nz");
+      return;
+    }
+
+    if (!validatePassword(password, repeatPassword)) {
+      setIsPasswordMatch(false);
+      setMessage("Passwords do not match");
+      return;
+    }
 
     try {
-      const response = await account.create(ID.unique(), email, password);
-      console.log("Registration successful:", response);
       // Create user in backend
-      authenticatedPostRequest
-        .authenticatedPostRequest("/persons", {
-          id: response.$id,
-          name: response.email,
-          position: "user",
+      unAuthenticatedPostRequest
+        .unAuthenticatedPostRequest("/persons", {
+          name: fullname,
+          email: email,
+          password: password,
         })
         .then((response) => {
           console.log("User created in backend:", response);
@@ -40,20 +64,32 @@ function RegisterForm() {
 
   return (
     <form
-      className="flex max-w-md flex-col gap-4"
+      className="flex w-96 flex-col gap-4"
       ref={registerForm}
       onSubmit={handleRegistration}
     >
       <div>
         <div className="mb-2 block">
+          <Label htmlFor="fullname" value="Your name" />
+        </div>
+        <TextInput
+          id="fullname"
+          type="text"
+          placeholder="John Doe"
+          required
+          shadow
+        />
+        <div className="mb-2 block">
           <Label htmlFor="email" value="Your email" />
         </div>
+
         <TextInput
           id="email"
           type="email"
-          placeholder="name@company.com"
+          placeholder="yourname@kpmg.co.nz"
           required
           shadow
+          color={isValidEmail ? "gray" : "failure"}
         />
       </div>
       <div>
@@ -63,6 +99,7 @@ function RegisterForm() {
         <TextInput
           id="password"
           type="password"
+          placeholder="********"
           minLength={8}
           required
           shadow
@@ -70,11 +107,20 @@ function RegisterForm() {
       </div>
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="repeat-password" value="Repeat password" />
+          <Label htmlFor="repeatPassword" value="Repeat password" />
         </div>
-        <TextInput id="repeat-password" type="password" required shadow />
+        <TextInput
+          id="repeatPassword"
+          type="password"
+          placeholder="********"
+          required
+          shadow
+          color={isPasswordMatch ? "gray" : "failure"}
+        />
       </div>
       <Button type="submit">Register new account</Button>
+      <p className="text-red-500">{message}</p>
+      <p className="text-gray-500">Already have an account? </p>
       <Button color="gray" onClick={() => navigate("/login")}>
         Login
       </Button>

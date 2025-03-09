@@ -74,7 +74,7 @@ const authenticatedPostRequest = async (
   }
 };
 
-const unauthenticatedGetRequest = async (
+const unAuthenticatedGetRequest = async (
   path: string,
   options: AxiosRequestConfig = {},
 ): Promise<AxiosResponse> => {
@@ -91,7 +91,7 @@ const unauthenticatedGetRequest = async (
   }
 };
 
-const unauthenticatedPostRequest = async (
+const unAuthenticatedPostRequest = async (
   path: string,
   data: any,
   options: AxiosRequestConfig = {},
@@ -109,9 +109,46 @@ const unauthenticatedPostRequest = async (
   }
 };
 
+const authenticatedPutRequest = async (
+  path: string,
+  data: any,
+  params: any = {},
+  options: AxiosRequestConfig = {},
+): Promise<AxiosResponse> => {
+  const token = localStorage.getItem("authToken");
+
+  if (!token) {
+    throw new Error("No authentication token found");
+  }
+  params.token = token;
+
+  const config: AxiosRequestConfig = {
+    ...options,
+    headers: {
+      ...options.headers,
+      Authorization: `Bearer ${token}`,
+    },
+    params: params,
+  };
+
+  const url = `${backendUrl}${path}`;
+
+  try {
+    const response = await axios.put(url, data, config);
+    return response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(`Request failed: ${error.message}`);
+    } else {
+      throw new Error("Request failed");
+    }
+  }
+};
+
 export default {
   authenticatedGetRequest,
   authenticatedPostRequest,
-  unauthenticatedGetRequest,
-  unauthenticatedPostRequest,
+  unAuthenticatedGetRequest,
+  unAuthenticatedPostRequest,
+  authenticatedPutRequest,
 };

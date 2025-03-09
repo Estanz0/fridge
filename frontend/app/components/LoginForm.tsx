@@ -27,7 +27,7 @@ function LoginForm() {
   return (
     <>
       <form
-        className="flex max-w-md flex-col gap-4"
+        className="flex w-96 flex-col gap-4"
         ref={loginForm}
         onSubmit={handleLogin}
       >
@@ -53,6 +53,7 @@ function LoginForm() {
           <Label htmlFor="remember">Remember me</Label>
         </div>
         <Button type="submit">Submit</Button>
+        <p className="text-gray-500">Don't have an account?</p>
         <Button color="gray" onClick={() => navigate("/register")}>
           Sign Up
         </Button>

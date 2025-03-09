@@ -2,6 +2,7 @@ import { createContext, useState, useEffect, useContext } from "react";
 import { account } from "../util/Appwrite";
 
 import { Models } from "appwrite";
+import { Spinner } from "flowbite-react";
 
 interface AuthContextType {
   user: Models.User<Models.Preferences> | null;
@@ -47,7 +48,20 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   return (
     <AuthContext.Provider value={contextData}>
-      {loading ? <div>Loading...</div> : children}
+      {loading ? (
+        <>
+          <div className="flex h-screen items-center justify-center bg-gray-100 dark:bg-gray-800">
+            <div className="text-center">
+              <Spinner
+                color="info"
+                aria-label="Center-aligned spinner example"
+              />
+            </div>
+          </div>
+        </>
+      ) : (
+        children
+      )}
     </AuthContext.Provider>
   );
 };

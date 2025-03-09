@@ -3,36 +3,50 @@
 import {
   Button,
   Label,
-  TextInput,
+  Textarea,
   Radio,
   RangeSlider,
   Spinner,
   Checkbox,
+  Tooltip,
 } from "flowbite-react";
-import unauthenticatedGetRequest from "../util/authenticatedRequest";
-import unauthenticatedPostRequest from "../util/authenticatedRequest";
+import authenticatedGetRequest from "../util/authenticatedRequest";
+import authenticatedPostRequest from "../util/authenticatedRequest";
 import { ChangeEvent, useEffect, useState } from "react";
-import { Person, FineTypeValues } from "../types/types";
+import { Person, FineType } from "../types/types";
 
 function FineForm() {
-  // Get People
   const [people, setPeople] = useState<Person[]>([]);
+  const [fineTypes, setFineTypes] = useState<FineType[]>([]);
+  const [fineDescription, setFineDescription] = useState("");
+  const [selectedFineTypeId, setSelectedFineTypeId] = useState("");
+  const [selectedFineAmount, setSelectedFineAmount] = useState(1);
+  const [selectedPeople, setSelectedPeople] = useState<number[]>([]);
+
+  const [status, setStatus] = useState("inProgress");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  // Get People
   useEffect(() => {
     async function fetchPeople() {
       const response =
-        await unauthenticatedGetRequest.unauthenticatedGetRequest("/persons");
+        await authenticatedGetRequest.authenticatedGetRequest("/persons");
       setPeople(response.data);
     }
     fetchPeople();
   }, []);
 
-  const [fineDescription, setFineDescription] = useState("");
-  const [fineType, setFineType] = useState("");
-  const [fineAmount, setFineAmount] = useState(1);
-  const [selectedPeople, setSelectedPeople] = useState<number[]>([]);
+  // Get Fine Types
+  useEffect(() => {
+    async function fetchFineTypes() {
+      const response =
+        await authenticatedGetRequest.authenticatedGetRequest("/fine-types");
+      setFineTypes(response.data);
+      setSelectedFineTypeId(response.data[0].id);
+    }
+    fetchFineTypes();
+  }, []);
 
-  const [status, setStatus] = useState("inProgress");
-  const [errorMessage, setErrorMessage] = useState("");
   // Submit Form
   const submitForm = async () => {
     console.log("submitting form");
@@ -40,17 +54,16 @@ function FineForm() {
 
     const data = {
       description: fineDescription,
-      fine_type: fineType,
-      amount: fineAmount,
+      fine_type_id: selectedFineTypeId,
+      amount: selectedFineAmount,
       people: selectedPeople,
     };
 
     try {
-      const response =
-        await unauthenticatedPostRequest.unauthenticatedPostRequest(
-          "/fines",
-          data,
-        );
+      const response = await authenticatedPostRequest.authenticatedPostRequest(
+        "/fines",
+        data,
+      );
       if (response.status === 201) {
         setStatus("success");
       } else {
@@ -84,10 +97,10 @@ function FineForm() {
         <div className="mb-2 block">
           <Label htmlFor="large" value="Fine Description" />
         </div>
-        <TextInput
+        <Textarea
           id="large"
-          type="text"
-          sizing="lg"
+          required
+          rows={4}
           onChange={(e) => setFineDescription(e.target.value)}
         />
       </div>
@@ -95,31 +108,41 @@ function FineForm() {
         <div className="mb-2 block">
           <Label htmlFor="large" value="Fine Type" />
         </div>
-        {Object.values(FineTypeValues).map((fineType) => (
-          <div key={fineType} className="flex items-center gap-2">
-            <Radio
-              id={fineType}
-              name="fineType"
-              value={fineType}
-              onChange={(e) => setFineType(e.target.value)}
-            />
-            <Label htmlFor={fineType}>{fineType}</Label>
+        {fineTypes.map((fineType, index) => (
+          <div key={fineType.id} className="flex items-center gap-2">
+            <Tooltip
+              content={fineType.description}
+              style="light"
+              placement="right"
+            >
+              <Radio
+                id={fineType.id}
+                defaultChecked={index === 0}
+                name="fineType"
+                value={fineType.name}
+                onChange={(e) => setSelectedFineTypeId(e.target.value)}
+                className="mr-2"
+              />
+              <Label htmlFor={fineType.id}>{fineType.name}</Label>
+            </Tooltip>
           </div>
         ))}
       </fieldset>
       <div>
         <div className="mb-1 block">
-          <Label htmlFor="default-range" value="Fine Amount" />
+          <Label
+            htmlFor="default-range"
+            value={`Fine Amount: ${selectedFineAmount}`}
+          />
         </div>
         <RangeSlider
           id="default-range"
           min={1}
           max={10}
           step={1}
-          value={fineAmount}
-          onChange={(e) => setFineAmount(Number(e.target.value))}
+          value={selectedFineAmount}
+          onChange={(e) => setSelectedFineAmount(Number(e.target.value))}
         />
-        {fineAmount}
       </div>
       <div className="mb-2 block">
         <Label htmlFor="large" value="People" />
@@ -147,7 +170,7 @@ function FineForm() {
         </div>
       )}
       {status === "success" && (
-        <div className="text-green-500">Form submitted successfully</div>
+        <div className="text-green-500">Fine Created</div>
       )}
       {status === "submitting" && (
         <div>
@@ -159,8 +182,6 @@ function FineForm() {
           Submit
         </Button>
       )}
-      status: {status}
-      selectedPeople: {selectedPeople.join(", ")}
     </>
   );
 }

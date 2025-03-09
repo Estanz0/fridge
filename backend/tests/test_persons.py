@@ -5,8 +5,18 @@ def seed_database(db_session):
     """Create records before each test and delete them after."""
     # Create records
     persons_data = [
-        {"name": "Person One", "position": "Original Position"},
-        {"name": "Person Two", "position": "Original Position"},
+        {
+            "name": "Person One",
+            "email": "person1@kpmg.co.nz",
+            "position": "member",
+            "auth_user_id": "auth_user_id_1",
+        },
+        {
+            "name": "Person Two",
+            "email": "person2@kpmg.co.nz",
+            "position": "member",
+            "auth_user_id": "auth_user_id_1",
+        },
     ]
 
     for person_data in persons_data:
@@ -19,14 +29,14 @@ def test_get_persons(test_client, db_session):
     seed_database(db_session)
 
     # Get all persons
-    response = test_client.get("/persons/")
+    response = test_client.get("/persons")
     assert response.status_code == 200
     persons = response.json()
     assert len(persons) == 2
     assert persons[0]["name"] == "Person One"
-    assert persons[0]["position"] == "Original Position"
+    assert persons[0]["position"] == "member"
     assert persons[1]["name"] == "Person Two"
-    assert persons[1]["position"] == "Original Position"
+    assert persons[1]["position"] == "member"
 
 
 def test_get_person(test_client, db_session):
