@@ -3,7 +3,6 @@
 import { Button, Label } from "flowbite-react";
 
 import { account } from "../util/Appwrite";
-import { useNavigate } from "react-router-dom";
 
 function VerifyForm() {
   function emailVerification() {

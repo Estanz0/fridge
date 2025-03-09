@@ -1,6 +1,6 @@
 import { Fine } from "../types/types";
 import { FcCheckmark, FcCancel } from "react-icons/fc";
-import { capitalize, formatDateToLocal } from "../util/utilFunctions";
+import { formatDateToLocal } from "../util/utilFunctions";
 
 interface DashboardVotesListProps {
   fine: Fine | null;

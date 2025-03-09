@@ -1,5 +1,5 @@
 import { Fine } from "../types/types";
-import { capitalize, formatDateToLocal } from "../util/utilFunctions";
+import { formatDateToLocal } from "../util/utilFunctions";
 
 interface FineDetailsProps {
   fine: Fine | null;
