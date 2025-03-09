@@ -38,7 +38,7 @@ function LoginForm() {
           <TextInput
             id="email"
             type="email"
-            placeholder="name@flowbite.com"
+            placeholder="name@kpmg.co.nz"
             required
           />
         </div>
