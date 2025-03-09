@@ -48,6 +48,7 @@ interface FineType {
 interface Fine {
   amount: number;
   fine_type: FineType;
+  title: string;
   description: string;
   id: string;
   created_at: string;

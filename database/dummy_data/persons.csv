@@ -1,5 +1,5 @@
 id,name,email,position,auth_user_id
-p1,Byron Smith,byron.lg.smith@gmail.com,member,67ccea0e00133fb1a878
+p1,Byron Smith,byron.lg.smith@gmail.com,member,67cd56090039e9cf7360
 p2,John Doe,john.doe@example.com,member,auth123
 p3,Jane Smith,jane.smith@example.com,member,auth456
 p4,Bob Johnson,bob.johnson@example.com,member,auth789

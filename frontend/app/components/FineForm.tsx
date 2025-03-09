@@ -4,6 +4,7 @@ import {
   Button,
   Label,
   Textarea,
+  TextInput,
   Radio,
   RangeSlider,
   Spinner,
@@ -18,6 +19,7 @@ import { Person, FineType } from "../types/types";
 function FineForm() {
   const [people, setPeople] = useState<Person[]>([]);
   const [fineTypes, setFineTypes] = useState<FineType[]>([]);
+  const [fineTitle, setFineTitle] = useState("");
   const [fineDescription, setFineDescription] = useState("");
   const [selectedFineTypeId, setSelectedFineTypeId] = useState("");
   const [selectedFineAmount, setSelectedFineAmount] = useState(1);
@@ -53,6 +55,7 @@ function FineForm() {
     setStatus("submitting");
 
     const data = {
+      title: fineTitle,
       description: fineDescription,
       fine_type_id: selectedFineTypeId,
       amount: selectedFineAmount,
@@ -93,6 +96,17 @@ function FineForm() {
 
   return (
     <>
+      <div>
+        <div className="mb-2 block">
+          <Label htmlFor="large" value="Fine Title" />
+        </div>
+        <TextInput
+          id="base"
+          type="text"
+          sizing="md"
+          onChange={(e) => setFineTitle(e.target.value)}
+        />
+      </div>
       <div>
         <div className="mb-2 block">
           <Label htmlFor="large" value="Fine Description" />

@@ -103,6 +103,7 @@ class FineTypeResponseSchema(FineTypeSchema):
 # Fine Schemas
 class FineSchema(BaseModel):
     amount: int
+    title: str
     description: str
 
 
@@ -114,6 +115,7 @@ class FineCreateSchema(FineSchema):
 class FineUpdateSchema(BaseModel):
     amount: Optional[int] = None
     fine_type_id: Optional[FineTypeID] = None
+    title: Optional[str] = None
     description: Optional[str] = None
     status: Optional[StatusEnum] = None
 

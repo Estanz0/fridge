@@ -171,9 +171,9 @@ def create_fine(
     db_fine = Fine(
         amount=fine.amount,
         fine_type_id=fine.fine_type_id,
+        title=fine.title,
         description=fine.description,
         creator_id=creator_id,
-        # closes_at=closes_at,
     )
     db.add(db_fine)
     db.commit()

@@ -28,7 +28,7 @@ function FinesList({ setSelectedFineId, fineFilter }: FinesListProps) {
     <div className="w-full overflow-x-auto dark:bg-gray-800">
       <Table hoverable>
         <Table.Head>
-          <Table.HeadCell>Description</Table.HeadCell>
+          <Table.HeadCell>Title</Table.HeadCell>
           <Table.HeadCell>Status</Table.HeadCell>
           <Table.HeadCell>Fine Type</Table.HeadCell>
           <Table.HeadCell>Amount</Table.HeadCell>
@@ -45,7 +45,7 @@ function FinesList({ setSelectedFineId, fineFilter }: FinesListProps) {
               onClick={() => setSelectedFineId(fine.id)}
             >
               <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                {fine.description}
+                {fine.title}
               </Table.Cell>
               <Table.Cell>{fine.status}</Table.Cell>
               <Table.Cell>{fine.fine_type.name}</Table.Cell>

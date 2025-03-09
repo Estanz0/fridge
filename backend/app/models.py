@@ -74,6 +74,7 @@ class Fine(Base):
     id = Column(String, primary_key=True, default=generate_uuid)
     status = Column(SQLAEnum(schemas.StatusEnum), default=schemas.StatusEnum.open)
     amount = Column(Integer)
+    title = Column(String)
     description = Column(String)
     fine_type_id = Column(String, ForeignKey("fine_types.id"))
     created_at = Column(

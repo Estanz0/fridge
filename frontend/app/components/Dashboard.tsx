@@ -38,7 +38,7 @@ const Dashboard: React.FC = () => {
         </div>
         <div className="col-span-5 row-span-5 border-2 border-gray-200 bg-gray-100 p-1 text-2xl font-bold text-white dark:border-gray-600 dark:bg-gray-700">
           <h4 className="m-2 text-center text-2xl font-bold text-gray-500 dark:text-gray-400">
-            Details
+            {selectedFine?.title}
           </h4>
           <hr className="my-4 h-px border-0 bg-gray-500 dark:bg-gray-500"></hr>
           <DashboardFineDetails fine={selectedFine} />
