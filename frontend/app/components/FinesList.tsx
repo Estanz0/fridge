@@ -26,7 +26,7 @@ function FinesList({ setSelectedFineId, fineFilter }: FinesListProps) {
     fetchFines();
   }, []);
   return (
-    <div className="w-full overflow-x-auto dark:bg-gray-800">
+    <div className="min-w-[700px] overflow-y-auto dark:bg-gray-800">
       <Table hoverable>
         <Table.Head>
           <Table.HeadCell>Title</Table.HeadCell>

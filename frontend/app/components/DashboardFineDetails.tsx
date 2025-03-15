@@ -7,18 +7,16 @@ interface FineDetailsProps {
 
 const FineDetails = ({ fine }: FineDetailsProps) => {
   return (
-    <div className="max-h-96 overflow-y-auto sm:rounded-lg">
-      <dl className="divide-y divide-gray-200 p-4 text-gray-900 dark:divide-gray-700 dark:text-white">
+    <>
+      <dl className="flex min-h-0 flex-col divide-y divide-gray-200 p-4 text-gray-900 dark:divide-gray-700 dark:text-white">
         <div className="flex flex-col pb-3">
-          <dt className="mb-1 text-gray-500 dark:text-gray-400 md:text-lg">
+          <dt className="mb-1 text-gray-500 dark:text-gray-400">
             Submitted by
           </dt>
           <dd className="text-lg font-normal">{fine?.creator.name}</dd>
         </div>
         <div className="flex flex-col py-3">
-          <dt className="mb-1 text-gray-500 dark:text-gray-400 md:text-lg">
-            Closes At
-          </dt>
+          <dt className="mb-1 text-gray-500 dark:text-gray-400">Closes At</dt>
           <dd className="text-lg font-normal">
             {fine?.status === "open"
               ? formatDateToLocal(fine?.closes_at, true)
@@ -26,14 +24,14 @@ const FineDetails = ({ fine }: FineDetailsProps) => {
           </dd>
         </div>
 
-        <div className="flex flex-col pt-3">
-          <dt className="mb-1 text-gray-500 dark:text-gray-400 md:text-lg">
-            Description
-          </dt>
-          <dd className="text-lg font-normal">{fine?.description}</dd>
+        <div className="flex min-h-0 flex-1 flex-col pt-3">
+          <dt className="mb-1 text-gray-500 dark:text-gray-400">Description</dt>
+          <dd className="overflow-auto whitespace-pre-wrap break-words text-lg font-normal">
+            {fine?.description}
+          </dd>
         </div>
       </dl>
-    </div>
+    </>
   );
 };
 

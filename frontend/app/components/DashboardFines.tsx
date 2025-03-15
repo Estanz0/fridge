@@ -15,7 +15,7 @@ interface DashboardFinesProps {
 
 function DashboardFines({ setSelectedFineId }: DashboardFinesProps) {
   return (
-    <Tabs aria-label="Default tabs" style="fullWidth" className="w-full">
+    <Tabs aria-label="Default tabs" style="fullWidth">
       <Tabs.Item active title="Voting Open" icon={MdOutlineHowToVote}>
         <FineList
           setSelectedFineId={setSelectedFineId}
