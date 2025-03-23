@@ -5,6 +5,7 @@ from appwrite.services.account import Account
 import jwt
 from .config import settings
 from appwrite.id import ID
+import logging
 
 client = Client()
 client.set_endpoint(settings.APPWRITE_ENDPOINT)
@@ -13,6 +14,8 @@ client.set_key(settings.APPWRITE_API_KEY)
 
 users = Users(client)
 accounts = Account(client)
+
+logger = logging.getLogger(__name__)
 
 
 def get_token(email: str, password: str) -> str:
@@ -57,10 +60,13 @@ def validate_token(token: str) -> bool:
 
         return False
     except jwt.ExpiredSignatureError:
+        logger.error("Token expired")
         return False
     except jwt.InvalidTokenError:
+        logger.error("Invalid token")
         return False
-    except Exception:
+    except Exception as e:
+        logger.error(f"Error: {e}")
         return False
 
 
