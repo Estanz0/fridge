@@ -37,8 +37,8 @@ function NavbarComponent() {
   return (
     <Navbar fluid>
       <Navbar.Brand href="/">
-        <img src="/favicon.ico" className="mr-3 h-6 sm:h-9" alt="F" />
-        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+        <img src="/favicon.ico" className="mr-3 h-9" alt="F" />
+        <span className="hidden self-center whitespace-nowrap text-xl font-semibold dark:text-white sm:block">
           Fridge Fines
         </span>
       </Navbar.Brand>
@@ -46,7 +46,7 @@ function NavbarComponent() {
       <div className="flex space-x-4 md:order-2">
         {user && (
           <>
-            <h5 className="pt-1 text-2xl  font-bold text-gray-900 dark:text-gray-300">
+            <h5 className="hidden pt-1 text-lg font-bold text-gray-900 dark:text-gray-300 sm:block sm:text-2xl">
               Hello {user?.name.split(" ")[0]}!
             </h5>
             {user && user.emailVerification && (

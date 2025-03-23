@@ -7,7 +7,7 @@ interface DashboardGraphProps {
 
 function DashboardGraph({ fine }: DashboardGraphProps) {
   return (
-    <div className="flex h-full w-full items-center justify-center pb-3">
+    <div className="flex items-center justify-center pb-3">
       <Pie
         data={{
           datasets: [
