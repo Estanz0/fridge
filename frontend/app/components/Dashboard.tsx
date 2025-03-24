@@ -6,7 +6,7 @@ import DashboardFineDetails from "./DashboardFineDetails.tsx";
 import DashboardFinees from "./DashboardFinees.tsx";
 import DashboardVoteOutcome from "./DashboardVoteOutcome.tsx";
 import DashboardVotesList from "./DashboardVotesList.tsx";
-import DashboardGraph from "./DashboardGraph.tsx";
+// import DashboardGraph from "./DashboardGraph.tsx";
 import { Fine } from "../types/types";
 import authenticatedGetRequest from "../util/authenticatedRequest.tsx";
 

@@ -1,6 +1,5 @@
 "use client";
 
-import { Table } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { Fine, FineFilter } from "../types/types.tsx";
 import authenticatedGetRequest from "../util/authenticatedRequest.tsx";
@@ -72,7 +71,7 @@ function FinesList({ setSelectedFineId, fineFilter }: FinesListProps) {
                   >
                     {fine.title}
                   </th>
-                  <td className="px-6 py-4">{fine.status}</td>
+                  <td className="px-6 py-4">{capitalize(fine.status)}</td>
                   <td className="px-6 py-4">{fine.fine_type.name}</td>
                   <td className="px-6 py-4">{fine.amount}</td>
                   <td className="px-6 py-4">{fine.creator.name}</td>
@@ -82,47 +81,6 @@ function FinesList({ setSelectedFineId, fineFilter }: FinesListProps) {
           </tbody>
         </table>
       </div>
-
-      {/* <Table hoverable>
-        <Table.Head>
-          <Table.HeadCell>Title</Table.HeadCell>
-          <Table.HeadCell>Status</Table.HeadCell>
-          <Table.HeadCell>Fine Type</Table.HeadCell>
-          <Table.HeadCell>Amount</Table.HeadCell>
-          <Table.HeadCell>Created By</Table.HeadCell>
-          <Table.HeadCell>
-            <span className="sr-only">Edit</span>
-          </Table.HeadCell>
-        </Table.Head>
-        <Table.Body className="divide-y">
-          {loading ? (
-            // Show a loading spinner while the data is being fetched
-            <Table.Row>
-              <Table.Cell colSpan={5} className="text-center">
-                <div className="mr-3 h-5 w-5 animate-spin bg-gray-900 dark:bg-gray-800"></div>
-                Loading...
-              </Table.Cell>
-            </Table.Row>
-          ) : (
-            // Show the list of fines
-            fines.map((fine) => (
-              <Table.Row
-                key={fine.id}
-                className="bg-white dark:border-gray-700 dark:bg-gray-800"
-                onClick={() => setSelectedFineId(fine.id)}
-              >
-                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                  {fine.title}
-                </Table.Cell>
-                <Table.Cell>{capitalize(fine.status)}</Table.Cell>
-                <Table.Cell>{fine.fine_type.name}</Table.Cell>
-                <Table.Cell>{fine.amount}</Table.Cell>
-                <Table.Cell>{fine.creator.name}</Table.Cell>
-              </Table.Row>
-            ))
-          )}
-        </Table.Body>
-      </Table> */}
     </div>
   );
 }

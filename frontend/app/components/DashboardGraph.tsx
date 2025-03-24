@@ -1,14 +1,12 @@
 import { Fine } from "../types/types";
-// import { Pie } from "react-chartjs-2";
 import ReactApexChart from "react-apexcharts";
-import { useState } from "react";
 
 interface DashboardGraphProps {
   fine: Fine | null;
 }
 
 function DashboardGraph({ fine }: DashboardGraphProps) {
-  const [state, setState] = useState({
+  const config = {
     series: [fine?.vote_count?.approve, fine?.vote_count?.deny].filter(
       (value): value is number => value !== undefined,
     ),
@@ -34,13 +32,14 @@ function DashboardGraph({ fine }: DashboardGraphProps) {
         },
       ],
     },
-  });
+  };
+
   return (
     <div>
       <div id="chart">
         <ReactApexChart
-          options={state.options}
-          series={state.series}
+          options={config.options}
+          series={config.series}
           type="pie"
         />
       </div>

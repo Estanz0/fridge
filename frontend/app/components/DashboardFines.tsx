@@ -1,4 +1,4 @@
-import { Button, Tabs } from "flowbite-react";
+import { Button } from "flowbite-react";
 import {
   MdOutlineHowToVote,
   MdNotInterested,
