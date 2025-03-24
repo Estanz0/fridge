@@ -32,16 +32,22 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
-      <div className="flex h-[calc(100vh-4rem+2px)] w-screen flex-col gap-4 overflow-x-auto p-4 dark:bg-gray-800 md:flex-row">
+      <div className="flex h-[calc(100vh-4rem+2px)] w-screen flex-col gap-4 overflow-x-auto p-4 dark:bg-gray-800 lg:flex-row">
         {/* Fines List */}
-        <div className="flex min-w-fit flex-auto flex-col gap-4">
+        <div className="flex  flex-auto flex-col gap-4">
           <div className="grow border-2 border-gray-200 bg-gray-100 p-1 text-2xl font-bold text-white dark:border-gray-600 dark:bg-gray-700">
             <DashboardFines setSelectedFineId={setSelectedFineId} />
           </div>
         </div>
         {/* Fine Details */}
         <div className="flex flex-1 flex-col gap-4">
-          <div className="flex max-h-full flex-auto flex-col border-2 border-gray-200 bg-gray-100 dark:border-gray-600 dark:bg-gray-700">
+          <div className="flex-none border-2 border-gray-200 bg-gray-100 text-2xl font-bold text-white dark:border-gray-600 dark:bg-gray-700">
+            <DashboardVoteOutcome
+              fine={selectedFine}
+              getFineData={getFineData}
+            />
+          </div>
+          <div className="flex flex-1 flex-col border-2 border-gray-200 bg-gray-100 dark:border-gray-600 dark:bg-gray-700">
             <h4 className="m-2 text-center text-2xl font-bold text-gray-500 dark:text-gray-400">
               {selectedFine?.title}
             </h4>
@@ -49,15 +55,10 @@ const Dashboard: React.FC = () => {
 
             <DashboardFineDetails fine={selectedFine} />
           </div>
-          <div className="flex-none border-2 border-gray-200 bg-gray-100 text-2xl font-bold text-white dark:border-gray-600 dark:bg-gray-700">
-            <DashboardVoteOutcome
-              fine={selectedFine}
-              getFineData={getFineData}
-            />
-          </div>
-          <div className="border-2 border-gray-200 bg-gray-100 text-2xl font-bold text-white dark:border-gray-600 dark:bg-gray-700">
+
+          {/* <div className="flex-1 border-2 border-gray-200 bg-gray-100 text-2xl font-bold text-white dark:border-gray-600 dark:bg-gray-700">
             <DashboardGraph fine={selectedFine} />
-          </div>
+          </div> */}
         </div>
         {/* Finees and Votes */}
         <div className="flex flex-1 flex-col gap-4">
